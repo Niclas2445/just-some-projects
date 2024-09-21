@@ -1,19 +1,47 @@
-﻿@page "/counter"
+﻿@page "/lua"
 @rendermode InteractiveServer
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Keybind Lua script for WOW</PageTitle>
 
-<h1>Counter</h1>
+<h2>This page showcases Lau scripts i made for WOW</h2>
 
-<p role="status">Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-}
+<h3>Script for showing keybinds on weakaura icons</h3>
+<div class="">
+    <textarea>
+    function()
+    if aura_env.keyBind then
+        str = aura_env.keyBind
+        if string.match(str, "SHIFT") then
+            key = string.sub(str,7,7)
+            return key
+        elseif string.match(str, "CTRL") then
+            key = string.sub(str,6,6)
+            return key
+        else
+            return str
+        end
+    else
+        local name = aura_env.state.name
+        local spellID = C_Spell.GetSpellIDForSpellIdentifier(name)
+        if spellID then
+            if not kbTable_master[spellID] then
+                kbTable_refresh(name)
+            end
+            aura_env.keyBind = kbTable_master[spellID]
+            str = aura_env.keyBind
+            if string.match(str, "SHIFT") then
+                bla = string.sub(str,7,7)
+                key = "S" .. bla
+                return key
+            elseif string.match(str, "CTRL") then
+                bla = string.sub(str,6,6)
+                key = "C" .. bla
+                return key
+            else
+                return str
+            end
+        end
+    end
+end
+</textarea>
+</div>

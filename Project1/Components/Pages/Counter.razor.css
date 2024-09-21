@@ -1,0 +1,11 @@
+﻿h2{
+    margin-bottom:20px;
+}
+h3{
+    font-size:25px;
+}
+textarea{
+    width:500px;
+    height:600px;
+    font-size: 10px;
+}
